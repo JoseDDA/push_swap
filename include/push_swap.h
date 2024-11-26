@@ -48,8 +48,7 @@ int	sign(char argv);
 int	ft_isdigit(int c);
 
 // Stack Initialization
-void	ft_stack_init(t_stack **sA, char **argv);
-long	ft_atol(const char *nptr);
+ long	ft_atol(const char *nptr);
 void	append_node(t_stack **sA, int num);
 
 // Allowed Operations - Commads
