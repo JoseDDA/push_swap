@@ -6,12 +6,13 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:33:08 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/11/25 23:06:51 by jdorazio         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:36:28 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
+// This Function finds and Returns the Biggest Number in the Stack
 t_stack	*ft_max(t_stack *src)
 {
 	t_stack	*max_node;
@@ -28,16 +29,39 @@ t_stack	*ft_max(t_stack *src)
 	return (max_node);
 }
 
-int	ft_min(t_stack *src)
+// This Function finds and Returns the Smallest Number in the Stack
+t_stack	*ft_min(t_stack *src)
 {
-	int	min;
+	t_stack	*min_node;
 
-	min = src -> value;
-	while (src != NULL)
+	if (!src)
+		return (NULL);
+	min_node = src;
+	while (src)
 	{
-		if (src -> value < min)
-			min = src -> value;
+		if (src -> value < min_node -> value)
+			min_node = src;
 		src = src -> next;
 	}
-	return (min);
+	return (min_node);
 }
+// This function returns the last node of the stack
+t_stack	*ft_lastnode(t_stack *node)
+{
+	t_stack	*lnode;
+
+	if (!node)
+		return (NULL);
+	lnode = node;
+	while (lnode)
+		lnode = lnode -> next;
+	return (lnode);
+}
+
+// int	find_index(t_stack *sa)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (sa)
+// }
