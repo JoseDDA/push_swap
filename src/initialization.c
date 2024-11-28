@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:12:51 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/11/26 10:13:43 by jdorazio         ###   ########.fr       */
+/*   Updated: 2024/11/26 23:28:24 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_stack_init(t_stack **sA, char **argv)
 			printf("atoi failed\n");
 			exit(1);
 		}
-		printf("%ld\n", num);
 		append_node(sA, (int) num);
 		i++;
 	}
@@ -71,6 +70,7 @@ void	append_node(t_stack **sA, int num)
 	new_node -> cheapest = 0;
 	if (!*sA)
 		*sA = new_node;
+		
 	else
 	{
 		curr = *sA;
