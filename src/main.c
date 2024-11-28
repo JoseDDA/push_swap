@@ -34,27 +34,42 @@ int	main(int argc, char *argv[])
 	sB = NULL;
 	/* Initialize Stack `a`by appending each input number as a node */
 	ft_stack_init(&sA, argv + 1);
-	while (sA != NULL)
+	
+	// Check if Stack A is sorted
+	// 	If not sorted, implement sorting algorithm
+	if (!sorted(sA))
 	{
-		printf("Num %d\n", sA->value);
-		sA = sA -> next;
+		// Check for 2 numberes
+		// 		If so, simply swap the numbers
+		if (ft_stack_size(sA) == 2)
+			swap_a(&sA);
+		// Check for 3 numberes
+		// If so, sort_three algo
+		if (ft_stack_size(sA) == 3)
+			sort_three(&sA);
+		else
+		// 	Check if the stack has more than 3 numbers
+		// If so, Implement our Turk Algo
+			sort_stacks(&sA, &sB);
 	}
-	/* Check if Stack A is sorted
-		If not sorted, implement sorting algorithm
-			Check for 2 numberes
-				If so, simply swap the numbers
-			Check for 3 numberes
-				If so, implement our simple'sort three' algo
-			Check if the stack has more than 3 numbers
-				If so, Implement our Turk Algo
-	*/
-	// check if Stack A is already sorted.
-	// if (sorted(&sA))
-	// 	return (printf("already sorted \n"), 0);
-	// if (ft_stack_size(sA) == 2)
-	// 	ft_swap(&sA);
-	// if (ft_stack_size(sA) == 3)
-	// 	ft_sort_three(&sA);
+
+    printf("Stack A\t | Stack B\n");
+    printf("-------------------\n");
+    while (sA || sB) {
+        if (sA) {
+            printf("%d\t\t", sA->value); // Print value from Stack A
+            sA = sA->next;
+        } else {
+            printf("-\t\t"); // Placeholder for missing values in Stack A
+        }
+
+        if (sB) {
+            printf("%d\n", sB->value); // Print value from Stack B
+            sB = sB->next;
+        } else {
+            printf("-\n"); // Placeholder for missing values in Stack B
+        }
+    }
 
 	return (0);
 }
