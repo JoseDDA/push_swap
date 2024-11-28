@@ -83,6 +83,5 @@ void	init_nodes_A(t_stack *sA, t_stack *sB);
 t_stack	*get_cheapest(t_stack *src);
 void	move_node_A_to_B(t_stack **sA, t_stack **sB);
 void	rot_both(t_stack *sA, t_stack *sB, t_stack *cheapest_node);
-void	rev_rot_both(t_stack *sA, t_stack *sB, t_stack *cheapest_node);
-
+o
 #endif
