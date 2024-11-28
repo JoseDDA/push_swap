@@ -17,7 +17,7 @@ int	main(int argc, char *argv[])
 	t_stack *sA;
 	t_stack *sB;
 
-	/* Handle input count errors. Argument count must be > 2 and 
+	/* Handle input count errors. Argument count must be > 2 and
 	the second input must not be empty
 	Handle both cases of input: cl arguments or a string
 		If it's a string we need to split the substrings
@@ -27,14 +27,14 @@ int	main(int argc, char *argv[])
 	else if (argc == 2)
 		argv = ft_split(argv[1], ' ');
 	/* Declare pointers to two linked list
-		Set both pointers to NULL to avoid behaviour and indicate 
-		we're starting with empty stacks	
+		Set both pointers to NULL to avoid behaviour and indicate
+		we're starting with empty stacks
 	*/
-	sA = NULL; 
+	sA = NULL;
 	sB = NULL;
 	/* Initialize Stack `a`by appending each input number as a node */
 	ft_stack_init(&sA, argv + 1);
-	
+
 	// Check if Stack A is sorted
 	// 	If not sorted, implement sorting algorithm
 	if (!sorted(sA))
@@ -55,7 +55,8 @@ int	main(int argc, char *argv[])
 
     printf("Stack A\t | Stack B\n");
     printf("-------------------\n");
-    while (sA || sB) {
+    while (sA || sB)
+	{
         if (sA) {
             printf("%d\t\t", sA->value); // Print value from Stack A
             sA = sA->next;

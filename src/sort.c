@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
+/*   By: jdorazio <jdorazio@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:33:52 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/11/28 08:32:56 by jdorazio         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:00:14 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 // Check if Stack A is already Sorted. If yes, just return
-int	sorted(t_stack *sA) 
+int	sorted(t_stack *sA)
 {
 	t_stack	*curr;
 
@@ -44,7 +44,7 @@ void	sort_three(t_stack **sA)
 
 /*
 	IF pushed Number is Neither Maximum or Minimum from the Stack B -> Push somewhere
-		Checked whether the TARGET_NUMBERED in Stack B is MAX or MIN 
+		Checked whether the TARGET_NUMBERED in Stack B is MAX or MIN
 	Push only until STACK_SIZE = 3
 
 */
@@ -57,11 +57,14 @@ void	sort_stacks(t_stack **sA, t_stack **sB)
 		push_b(sA, sB);
 	if (s_size-- > 3 && !sorted(*sA))
 		push_b(sA, sB);
-	while (s_size-- > 3 && !sorted(*sA))
+	// printf("Actual size = %d\n", s_size);
+	while (s_size > 3 && !sorted(*sA))
 	{
+		// printf("Sort_stacks enters Loop\n");
 		move_node_A_to_B(sA, sB);
+		s_size--;
 	}
-	printf("Sort_Stacks loop\n");
+	sort_three(sA);
 
 }
 
@@ -95,7 +98,7 @@ void	find_index_median(t_stack *sA)
 /*
 	Find_Target:
 		- Finds the TARGET_NODE for each Node in A
-		- We sorting in descending order, therefore the target node is the largest node in 
+		- We sorting in descending order, therefore the target node is the largest node in
 			Stack B that is smaller than the current node in Stack A
 */
 void	find_target_A(t_stack *sA, t_stack *sB)
@@ -124,7 +127,7 @@ void	find_target_A(t_stack *sA, t_stack *sB)
 
 
 /* To Find Cost, we need first to find the TARGET
-	Example: 
+	Example:
 */
 void	find_cost(t_stack *sA, t_stack *sB)
 {
@@ -228,7 +231,7 @@ t_stack	*get_cheapest(t_stack *src)
 	}
  }
 
-void	rev_rot_both(t_stack *sA, t_stack *sB, t_stack *cheapest_node);
+void	rev_rot_both(t_stack *sA, t_stack *sB, t_stack *cheapest_node)
  {
 	if (!sA || !sB || !cheapest_node)
 		return;
@@ -243,36 +246,46 @@ void	rev_rot_both(t_stack *sA, t_stack *sB, t_stack *cheapest_node);
 	while (cheapest_node->index != 0)
 	{
 		rot_a(&sA);
-		cheapest_node->index++
+		cheapest_node->index++;
 	}
 	while (cheapest_node->target_node->index != 0)
 	{
 		rot_b(&sB);
-		cheapest_node->target_node->index++
+		cheapest_node->target_node->index++;
 	}
  }
+
+void	prep_node(t_stack *src)
+{
+	if (!src)
+		return;
+
+}
 
 
 void	move_node_A_to_B(t_stack **sA, t_stack **sB)
 {
 	t_stack	*cheapest_node;
 
-	printf("In move_node_A_to_B Works\n");
 	if (!sA || !sB)
 		return;
 	init_nodes_A(*sA,*sB);
 	cheapest_node = get_cheapest(*sA); // this tell's which node is cheaper
 	if (!cheapest_node)
 		return;
-	printf("Cheapest Node %d\n", cheapest_node->value);
-	printf("Index: %d\n" , cheapest_node->index);
-	printf("Target_Index Stack B: %d\n", cheapest_node->target_node->index);
-	printf("Target_Node Number: %d\n", cheapest_node->target_node->value);
-	
-	if (cheapest_node->above_median == 1 && cheapest_node->target_node->above_median == 1) 	
+	// printf("Cheapest Node %d\n", cheapest_node->value);
+	// printf("Index: %d\n" , cheapest_node->index);
+	// printf("Target_Index Stack B: %d\n", cheapest_node->target_node->index);
+	// printf("Target_Node Number: %d\n", cheapest_node->target_node->value);
+
+	if (cheapest_node->above_median == 1 && cheapest_node->target_node->above_median == 1)
 		rot_both(*sA, *sB, cheapest_node);
 	else if (cheapest_node->above_median == 0 && cheapest_node->target_node->above_median == 0)
 		rev_rot_both(*sA, *sB, cheapest_node);
-	// IF-cheapest Node_A is in index 1. Swap with 0 and Push to B
-	// IF cheapest Target_Node is in Index 1. Swap to 0 and Push A to B
+	if (cheapest_node->index == 1)
+		swap_a(sA);
+	if (cheapest_node->target_node->index == 1)
+		swap_b(sB);
+	push_b(sA, sB);
+	init_nodes_A(*sA,*sB);
 }
