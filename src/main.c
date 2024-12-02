@@ -1,77 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 00:16:16 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/11/01 00:16:16 by jdorazio         ###   ########.fr       */
+/*   Created: 2024/11/29 15:09:27 by jdorazio          #+#    #+#             */
+/*   Updated: 2024/12/02 09:36:59 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+# include "../include/push_swap.h"
 
-int	main(int argc, char *argv[])
+int	main(int ac, char **av)
 {
-	t_stack *sA;
-	t_stack *sB;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	char	**split_av;
 
-	/* Handle input count errors. Argument count must be > 2 and
-	the second input must not be empty
-	Handle both cases of input: cl arguments or a string
-		If it's a string we need to split the substrings
-	*/
-	if (argc == 1 || (argc == 2 && !argv[1][0]))
-		return (printf("Error: Check Inputed Arguments\n"), 1);
-	else if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	/* Declare pointers to two linked list
-		Set both pointers to NULL to avoid behaviour and indicate
-		we're starting with empty stacks
-	*/
-	sA = NULL;
-	sB = NULL;
-	/* Initialize Stack `a`by appending each input number as a node */
-	ft_stack_init(&sA, argv + 1);
-
-	// Check if Stack A is sorted
-	// 	If not sorted, implement sorting algorithm
-	if (!sorted(sA))
+	split_av = NULL;
+	stack_a = NULL;
+	stack_b = NULL;
+	if (ac == 1 || (ac == 2 && !av[1][0]))
+		return (write(1, "Not enough Arguments\n", 21), 1);
+	if (ac == 2)
+		split_av = ft_split(av[1], ' ');
+	else
+		split_av = av + 1;
+	init_stack(&stack_a, split_av);
+	if (!sorted(&stack_a))
 	{
-		// Check for 2 numberes
-		// 		If so, simply swap the numbers
-		if (ft_stack_size(sA) == 2)
-			swap_a(&sA);
-		// Check for 3 numberes
-		// If so, sort_three algo
-		if (ft_stack_size(sA) == 3)
-			sort_three(&sA);
+		//check first if Size = 2
+		if (ft_stack_size(stack_a) == 2)
+			swap(&stack_a, 0);
+		// IF SIZE == 3
+		else if (ft_stack_size(stack_a) == 3)
+			sort_three(&stack_a);
 		else
-		// 	Check if the stack has more than 3 numbers
-		// If so, Implement our Turk Algo
-			sort_stacks(&sA, &sB);
+			sort_large_stack(&stack_a, &stack_b);
 	}
-
+	printf("\n");
     printf("Stack A\t | Stack B\n");
     printf("-------------------\n");
-    while (sA || sB)
+    while (stack_a || stack_b)
 	{
-        if (sA) {
-            printf("%d\t\t", sA->value); // Print value from Stack A
-            sA = sA->next;
+        if (stack_a) {
+            printf("%d\t\t", stack_a->value); // Print value from Stack A
+            stack_a = stack_a->next;
         } else {
             printf("-\t\t"); // Placeholder for missing values in Stack A
         }
 
-        if (sB) {
-            printf("%d\n", sB->value); // Print value from Stack B
-            sB = sB->next;
+        if (stack_b) {
+            printf("%d\n", stack_b->value); // Print value from Stack B
+            stack_b = stack_b->next;
         } else {
             printf("-\n"); // Placeholder for missing values in Stack B
         }
     }
-
 	return (0);
 }
-
