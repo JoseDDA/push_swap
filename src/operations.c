@@ -6,160 +6,135 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:54:22 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/11/26 22:51:47 by jdorazio         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:30:31 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-// Swap the first two elements of a stack
-void	swap_a(t_stack **sa)
+/* 
+	First Element from Source Stack to Destine Stack
+	Source Stack can be either A or B
+	select = 0 -> swap_A
+	select = 1 -> swap_1
+*/
+void	push(t_stack **src_stack, t_stack **dest_stack, int	select)
+{
+	t_stack	*pushed_node;
+
+	if (!src_stack || !*src_stack)
+		return;
+	pushed_node = *src_stack;
+	*src_stack = (*src_stack)->next;
+	if (*src_stack)
+		(*src_stack)->prev = NULL;
+	if (!dest_stack)
+		return ; 
+	pushed_node->next = *dest_stack;
+	if (*dest_stack)
+		(*dest_stack)->prev = pushed_node;
+	*dest_stack = pushed_node;
+	pushed_node->prev = NULL;
+	if (select == 0)
+		write(1, "pa\n", 3);
+	else if (select == 1)
+		write(1, "pb\n", 3);
+	else;
+}
+
+/*
+	Swap Works equally for both stacks. 
+	Only difference is the print
+*/
+void	swap(t_stack **node, int select)
 {
 	int		temp;
+	t_stack	*curr;
 
-	if (*sa == NULL || (*sa) -> next == NULL)
-	{
-		printf("Error: swaping less than 2 elements\n");
+	if (!node || !*node || !(*node)->next)
 		return;
-	}
-	temp = (*sa) -> value;
-	(*sa) -> value = (*sa) -> next -> value;
-	(*sa) -> next -> value = temp;
-	write(1, "sa\n", 3);
+	curr = *node;
+	temp = curr->value;
+	curr->value = curr->next->value;
+	curr->next->value = temp;
+	if (select == 0)
+		write(1, "sa\n", 3);
+	else if (select == 1)
+		write(1, "sb\n", 3);
+	else;
 }
 
-// Push First Element from Source Stack to Destine Stack
-void	push_a(t_stack **sa, t_stack **sb)
-{
-	t_stack	*temp;
-
-	if (sa == NULL)
-	{
-		printf("Error: Head Is NULL");
+ void	ss(t_stack **sA, t_stack **sB)
+ {
+	if (!sA || !sB || !*sA || !*sB)
 		return;
-	}
-	temp = (*sa) -> next;
-	(*sa) -> next = *sb;
-	*sb = *sa;
-	*sa = temp;
-	write(1, "pa\n", 3);
+	swap(sA, 2);
+	swap(sB, 2);
+	write(1, "ss\n", 3);
+ }
 
-}
+
 
 // Rotate First Element -> Means Last Element Becomes the First
-void rot_a(t_stack **sa)
+void	rot(t_stack **stack, int select)
 {
-	t_stack	*temp;
 	t_stack *last;
+	t_stack	*new_head;
 
-	if (*sa == NULL)
+	if (!stack ||!*stack || !(*stack)->next)
 		return ;
-	temp = *sa;
-	*sa = (*sa) -> next;
-	(*sa) -> prev = NULL;
-	last = *sa;
-	while (last -> next != NULL)
-		last = last -> next;
-	last -> next = temp; 
-	temp -> prev = last;
-	temp -> next = NULL;
-	write(1, "ra\n", 3);
+	last = get_last_node(*stack);
+	if (!last)
+		return;
+	new_head = (*stack)->next;
+	new_head->prev = NULL;
+	last->next = *stack;
+	(*stack)->next = NULL;
+	(*stack)->prev = last;
+	*stack = new_head;
+	if (select == 0)
+			write(1, "ra\n", 3);
+	else if (select == 1)
+			write(1, "rb\n", 3);
+	else;
 }
 
+ void	rr(t_stack **sA, t_stack **sB)
+ {
+	if (!sA || !sB)
+		return;
+	rot(sA, 2);
+	rot(sB, 2);
+	write(1, "rr\n", 3);
+ }
 // Reverse Rotate First Element -> Means First Element Becomes the Last
-void	rev_rot_a(t_stack **sa)
+void	rev_rot(t_stack **stack, int select)
 {
 	t_stack	*last;
-	t_stack	*second_last;
 
-	if (*sa == NULL)
-		return ;
-	last = *sa;
-	while (last -> next != NULL)
-	{
-		second_last = last;
-		last = last -> next;
-	}
-	second_last -> next = NULL;
-	last -> next = *sa;
-	(*sa) -> prev = last;
-	last -> prev = NULL;
-	*sa = last;
-	write(1, "rra\n", 3);
-}
-
-// Swap the first two elements of a stack
-void	swap_b(t_stack **sb)
-{
-	int		temp;
-
-	if (*sb == NULL || (*sb) -> next == NULL)
-	{
-		printf("Error: swaping less than 2 elements\n");
+	if (!stack || !*stack ||!(*stack)->next)
 		return;
-	}
-	temp = (*sb) -> value;
-	(*sb) -> value = (*sb) -> next -> value;
-	(*sb) -> next -> value = temp;
-	write(1, "sb\n", 3);
-}
-
-// Push First Element from Source Stack to Destine Stack
-void	push_b(t_stack **sb, t_stack **sa)
-{
-	t_stack	*temp;
-
-	if (sb == NULL)
-	{
-		printf("Error: Head Is NULL");
+	last = get_last_node(*stack);
+	if (!last || !last->prev)
 		return;
-	}
-	temp = (*sb) -> next;
-	(*sb) -> next = *sa;
-	*sa = *sb;
-	*sb = temp;
-	write(1, "pb\n", 3);
-
+	if (last->prev)
+		last->prev->next = NULL;
+	last->next = *stack; //Assign to its own `next` attribute as the top node of the stack
+	*stack = last; //Update the current last node of the stack
+	if (last->next)
+		last->next->prev = last;
+	if (select == 0)
+		write(1, "rra\n", 4);
+	else if (select == 1)
+		write(1, "rrb\n", 4);
+	else;
 }
 
-// Rotate First Element -> Means Last Element Becomes the First
-void rot_b(t_stack **sb)
-{
-	t_stack	*temp;
-	t_stack *last;
-
-	if (*sb == NULL)
-		return ;
-	temp = *sb;
-	*sb = (*sb) -> next;
-	(*sb) -> prev = NULL;
-	last = *sb;
-	while (last -> next != NULL)
-		last = last -> next;
-	last -> next = temp; 
-	temp -> prev = last;
-	temp -> next = NULL;
-	write(1, "rb\n", 3);
-}
-
-// Reverse Rotate First Element -> Means First Element Becomes the Last
-void	rev_rot_b(t_stack **sb)
-{
-	t_stack	*last;
-	t_stack	*second_last;
-
-	if (*sb == NULL)
-		return ;
-	last = *sb;
-	while (last -> next != NULL)
-	{
-		second_last = last;
-		last = last -> next;
-	}
-	second_last -> next = NULL;
-	last -> next = *sb;
-	(*sb) -> prev = last;
-	last -> prev = NULL;
-	*sb = last;
-	write(1, "rrb\n", 3);
-}
+ void	rrr(t_stack **sA, t_stack **sB)
+ {
+	if (!sA || !sB)
+		return;
+	rev_rot(sA, 2);
+	rev_rot(sB, 2);
+	write(1, "rrr\n", 4);
+ }
