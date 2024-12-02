@@ -5,63 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/25 16:33:08 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/11/26 23:36:28 by jdorazio         ###   ########.fr       */
+/*   Created: 2024/12/01 14:38:49 by jdorazio          #+#    #+#             */
+/*   Updated: 2024/12/02 09:34:49 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+# include "../include/push_swap.h"
 
-// This Function finds and Returns the Biggest Number in the Stack
-t_stack	*ft_max(t_stack *src)
+int	ft_stack_size(t_stack *stack)
 {
-	t_stack	*max_node;
-
-	if (!src)
-		return (NULL);
-	max_node = src;
-	while (src != NULL)
+	int	size;
+	
+	if (!stack)
+		return (0);
+	size = 0;
+	while (stack)
 	{
-		if (src -> value > max_node -> value)
-			max_node = src;
-		src = src -> next;
+		stack = stack -> next;
+		size++;
 	}
-	return (max_node);
+	return (size);
+}
+/*
+	Returns a pointer to the last node in the stack.
+	- If the stack is empty, returns NULL.
+*/
+t_stack	*get_last_node(t_stack *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (stack->next)
+		stack = stack->next;
+	//printf("Last node %d\n", stack->value);
+	return (stack);
 }
 
-// This Function finds and Returns the Smallest Number in the Stack
-t_stack	*ft_min(t_stack *src)
+t_stack	*highest_node_value(t_stack *stack)
 {
-	t_stack	*min_node;
+	t_stack	*highest_node;
+	t_stack	*curr;
 
-	if (!src)
+	if (!stack)
 		return (NULL);
-	min_node = src;
-	while (src)
+	highest_node = NULL;
+	curr = stack;
+	while (curr)
 	{
-		if (src -> value < min_node -> value)
-			min_node = src;
-		src = src -> next;
+		if (!highest_node || curr->value > highest_node->value)
+			highest_node = curr;
+		curr = curr->next;
 	}
-	return (min_node);
+	return (highest_node);	
 }
-// This function returns the last node of the stack
-t_stack	*ft_lastnode(t_stack *node)
+
+t_stack *lowest_node_value(t_stack *stack)
 {
-	t_stack	*lnode;
+	t_stack	*lowest_node;
+	t_stack	*curr;
 
-	if (!node)
+	if (!stack)
 		return (NULL);
-	lnode = node;
-	while (lnode)
-		lnode = lnode -> next;
-	return (lnode);
+	lowest_node = NULL;
+	curr = stack;
+	while (curr)
+	{
+		if (!lowest_node || curr->value < lowest_node->value)
+			lowest_node = curr;
+		curr = curr->next;
+	}
+	return (lowest_node);
 }
 
-// int	find_index(t_stack *sa)
-// {
-// 	int	i;
+/*
+	Ensure the lowest value node in the stack is moved to the top.
 
-// 	i = 0;
-// 	while (sa)
-// }
+	Steps:
+	1. Identify the lowest value node using `lowest_node_value`.
+	2. Use `finish_rot` to bring the lowest node to the top of the stack.
+
+	Note: This function assumes the stack is partially sorted or being finalized 
+	      for operations requiring the lowest value on top.
+*/
+void	bring_lowest_to_top(t_stack **stack)
+{
+	t_stack	*lowest_node;
+
+	if (!stack)
+		return;
+	lowest_node = lowest_node_value(*stack);
+	if (!lowest_node)
+		return ;
+	align_stacks_for_push(stack, lowest_node, 'a');
+}
