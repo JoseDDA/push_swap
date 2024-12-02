@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:54:22 by jdorazio          #+#    #+#             */
-/*   Updated: 2024/12/02 09:30:31 by jdorazio         ###   ########.fr       */
+/*   Updated: 2024/12/02 10:14:56 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	push(t_stack **src_stack, t_stack **dest_stack, int	select)
 		write(1, "pa\n", 3);
 	else if (select == 1)
 		write(1, "pb\n", 3);
-	else;
 }
 
 /*
@@ -61,7 +60,6 @@ void	swap(t_stack **node, int select)
 		write(1, "sa\n", 3);
 	else if (select == 1)
 		write(1, "sb\n", 3);
-	else;
 }
 
  void	ss(t_stack **sA, t_stack **sB)
@@ -96,7 +94,6 @@ void	rot(t_stack **stack, int select)
 			write(1, "ra\n", 3);
 	else if (select == 1)
 			write(1, "rb\n", 3);
-	else;
 }
 
  void	rr(t_stack **sA, t_stack **sB)
@@ -127,7 +124,6 @@ void	rev_rot(t_stack **stack, int select)
 		write(1, "rra\n", 4);
 	else if (select == 1)
 		write(1, "rrb\n", 4);
-	else;
 }
 
  void	rrr(t_stack **sA, t_stack **sB)
