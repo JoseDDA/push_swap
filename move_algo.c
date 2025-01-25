@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:19:52 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 17:14:14 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/25 10:34:01 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,20 @@ void	move_cheapest(t_stack *stacks)
 	cheapest_index = pick_cheapest(stacks);
 	//printf("Cheapest Index %d[%d]\n", (int) stacks->stack_a[cheapest_index], (int) cheapest_index);
 	if (stacks->rr_rrr == 1)
+	{
+		//printf("\n RR_both en move_cheapest\n");
 		rr_both(stacks, cheapest_index);
+	}
 	else if (stacks-> rr_rrr == 2)
+	{
+
+		//printf("\n RRR_both en move_cheapest\n");
 		rrr_both(stacks, cheapest_index);
+	}
 	else
 	{
-		//printf("Entering move algo r_top\n");	
+
+		//printf("\n R_rot en move_cheapest\n");
 		r_top(stacks, cheapest_index);
 	}
 }
@@ -46,8 +54,8 @@ void	set_target_a(t_stack *stacks)
 		j = 0;
 		while (j < stacks->size_b)
 		{
-			if (stacks->stack_a[i] > stacks->stack_b[j] && 
-			(target == (int)stacks->size_b || stacks->stack_b[j] > stacks->stack_b[target]))
+			if (stacks->stack_a[i] < stacks->stack_b[j] && 
+			(target == (int)stacks->size_b || stacks->stack_b[j] < stacks->stack_b[target]))
 				target = j;
 			j++;
 		}

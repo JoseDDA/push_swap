@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:03:24 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 17:12:41 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/25 10:34:43 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_rr_rrr_cost(size_t i, size_t size_A, size_t size_B, size_t target, int is
 				return (size_B - target);
 		}
 	}
-	return (-1);
+	return (INT_MAX);
 
 }
 
@@ -83,9 +83,10 @@ size_t	find_lowest_index(int *cost_array, size_t size)
 	cheapest_index = 0;
 	while (i < size)
 	{
-		if (cost_array[i] != -1 && (cheapest_index == size ||
+		if (cost_array[i] != INT_MAX && (cheapest_index == size ||
 			cost_array[i] < cost_array[cheapest_index]))
 			cheapest_index = i;
+		//printf("Cheapest in find_lowest: %d\n", (int) cheapest_index);
 		
 		i++;
 	}
@@ -100,14 +101,15 @@ size_t	pick_cheapest(t_stack *stacks)
 
 	// cost no retorna el costo, sino el indice del valor más bajo
 	cost = find_lowest_index(stacks->cost, stacks->size_a);
-	//printf("Cost: Cheapest %zu\n", cost);
+	//printf("Cost: Cheapest aquí %zu\n", cost);
 	rr_cost = find_lowest_index(stacks->cost_rr, stacks->size_a);
 	//printf("RR_Cost: Cheapest %zu\n", rr_cost);
 	rrr_cost = find_lowest_index(stacks->cost_rrr, stacks->size_a);
 	//printf("RRR_Cost: Cheapest %zu\n", rrr_cost);
-	if (cost <= rr_cost && cost <= rrr_cost)
+	
+	if (stacks->cost[cost] <= stacks->cost_rr[rr_cost] && stacks->cost[cost] <= stacks->cost_rrr[rrr_cost])
 		return (stacks->rr_rrr = 0, cost);
-	if (rr_cost < cost && rr_cost < rrr_cost)
+	else if (stacks->cost_rr[rr_cost] <= stacks->cost[cost] && stacks->cost_rr[rr_cost] <= stacks->cost_rrr[rrr_cost])
 		return (stacks->rr_rrr = 1, rr_cost);
 	else
 		return (stacks->rr_rrr = 2, rrr_cost);
