@@ -6,13 +6,13 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:41:02 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/22 18:03:12 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:44:05 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-size_t	find_index(t_stack *stacks, int min_value)
+size_t	find_index(t_stack *stacks, int value)
 {
 	size_t	i;
 	int		*stack;
@@ -21,10 +21,12 @@ size_t	find_index(t_stack *stacks, int min_value)
 	stack = stacks->stack_a;
 	while (i < stacks->size_a)
 	{
-		if (stack[i] == min_value)
+		if (stack[i] == value)
 			return (i);
 		i++;
 	}
+	//printf("Value %d not found in stack_a\n", min_value);
+
 	return (i);
 }
 
@@ -35,12 +37,13 @@ int	find_min(t_stack *stacks)
 
 	i = 0;
 	min_value = INT_MAX;
-	while (i < stacks->size_a -1)
+	while (i < stacks->size_a)
 	{
 		if (stacks->stack_a[i] < min_value)
 			min_value = stacks->stack_a[i];
 		i++;
 	}
+	//printf("Min value %d\n", min_value);
 	return (min_value);
 }
 
