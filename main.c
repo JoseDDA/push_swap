@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:09:27 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 17:11:47 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:15:33 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av)
 	check_init_stacks(ac, av, stacks);
 
 	// Debug: Imprimir el estado inicial de stack_a y stack_b
+
 	// printf("Initial Stack A:\n");
 	// for (size_t i = 0; i < stacks->size_a; i++)
 	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
@@ -52,7 +53,6 @@ int	main(int ac, char **av)
 		{
 		//	printf("start sorting stack A using stack B\n");
 			sort_stacks(stacks);
-		
 		}
 	}
 	
@@ -60,6 +60,7 @@ int	main(int ac, char **av)
 
 
 // Debug: Imprimir el estado final de stack_a y stack_b
+
 	// printf("\nFinal Stack A:\n");
 	// for (size_t i = 0; i < stacks->size_a; i++)
 	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);

@@ -6,16 +6,12 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:03:24 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/25 10:34:43 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:00:17 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-	Asignamos el costo de hacer una rotación cost
-	Creamos una array de costo con base en el indice
-*/
 int	ft_r_cost(size_t i, size_t size, size_t median)
 {
 	if (i < median)
@@ -49,7 +45,6 @@ int	ft_rr_rrr_cost(size_t i, size_t size_A, size_t size_B, size_t target, int is
 		}
 	}
 	return (INT_MAX);
-
 }
 
 void	ft_calculate_cost(t_stack *stacks)
@@ -69,7 +64,6 @@ void	ft_calculate_cost(t_stack *stacks)
 			 stacks->target_a[i], 1);
 		stacks->cost_rrr[i] = ft_rr_rrr_cost(i, size_A, size_B,
 			 stacks->target_a[i], 0);
-		//printf("Cost %d[%zu]: Independent %d, rr: %d, rrr: %d\n",stacks->stack_a[i], i, stacks->cost[i], stacks->cost_rr[i], stacks->cost_rrr[i]);
 		i++;
 	}
 }
@@ -85,9 +79,7 @@ size_t	find_lowest_index(int *cost_array, size_t size)
 	{
 		if (cost_array[i] != INT_MAX && (cheapest_index == size ||
 			cost_array[i] < cost_array[cheapest_index]))
-			cheapest_index = i;
-		//printf("Cheapest in find_lowest: %d\n", (int) cheapest_index);
-		
+			cheapest_index = i;		
 		i++;
 	}
 	return (cheapest_index);

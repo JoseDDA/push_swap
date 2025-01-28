@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:06:33 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 17:10:07 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:14:34 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,16 @@ void	sort_circular_stack(t_stack *stacks)
 	rr_cost = size_a - min_index;
 	if (rot_cost < rr_cost)
 		while (find_index(stacks, min_value) != 0)
+		{
+			//printf("Rotating stack a\n");
 			rot(stacks, 0);
+		}
 	else
 		while (find_index(stacks, min_value) != 0)
+		{
+			//printf("Rev. Rot. stack a\n");
 			rev_rot(stacks, 0);
+		}
 }
 
 void	sort_stacks(t_stack *stacks)
@@ -94,22 +100,43 @@ void	sort_stacks(t_stack *stacks)
 		push(stacks, 1);
 	if (is_sorted_circular(stacks) && !sorted(stacks))
 		sort_circular_stack(stacks);
-	//printf("Starting Sorting Algo\n");
-	//printf("\nStarting Move_cheapest\n");
 	while (stacks->size_a > 3 && !sorted(stacks))
 	{
 		move_cheapest(stacks);
 		if (is_sorted_circular(stacks))
 			sort_circular_stack(stacks);
 		push(stacks, 1);
+
+	// printf("\n STack A to B\n");
+	// for (size_t i = 0; i < stacks->size_a; i++)
+	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
+	// printf("\nFinal Stack B:\n");
+	// for (size_t i = 0; i < stacks->size_b; i++)
+	// 	printf("stack_b[%zu] = %d\n", i, stacks->stack_b[i]);
+	// printf("\n");
 	}
-	//printf("reach sort_three in A\n");
+	
 	sort_three(stacks);
-	//printf("Starting Move B \n");
+	// printf("\nFinal Stack A:\n");
+	// for (size_t i = 0; i < stacks->size_a; i++)
+	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
+	// printf("\nFinal Stack B:\n");
+	// for (size_t i = 0; i < stacks->size_b; i++)
+	// 	printf("stack_b[%zu] = %d\n", i, stacks->stack_b[i]);
+	// printf("\n");
+	// printf("\n Start Sort from B to A \n");
 	while (stacks->size_b)
 	{
 		move_cheapest_b(stacks);
 		push(stacks, 0);
+	// printf("\nFinal Stack A:\n");
+	// for (size_t i = 0; i < stacks->size_a; i++)
+	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
+	// printf("\nFinal Stack B:\n");
+	// for (size_t i = 0; i < stacks->size_b; i++)
+	// 	printf("stack_b[%zu] = %d\n", i, stacks->stack_b[i]);
+	// printf("\n");
 	}
+	// printf("\n Before las sort\n");
 	sort_circular_stack(stacks);
 }

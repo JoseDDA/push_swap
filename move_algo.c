@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:19:52 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/25 10:34:01 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:14:51 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ void	move_cheapest(t_stack *stacks)
 	//printf("Cheapest Index %d[%d]\n", (int) stacks->stack_a[cheapest_index], (int) cheapest_index);
 	if (stacks->rr_rrr == 1)
 	{
-		//printf("\n RR_both en move_cheapest\n");
-		rr_both(stacks, cheapest_index);
+		//printf("\n sync_rr en move_cheapest\n");
+		sync_rr(stacks, cheapest_index);
 	}
 	else if (stacks-> rr_rrr == 2)
 	{
-
-		//printf("\n RRR_both en move_cheapest\n");
-		rrr_both(stacks, cheapest_index);
+		//printf("\n sync_rrr en move_cheapest\n");
+		sync_rrr(stacks, cheapest_index);
 	}
 	else
 	{
@@ -60,7 +59,7 @@ void	set_target_a(t_stack *stacks)
 			j++;
 		}
 		stacks->target_a[i] = target;
-	//printf("Set_Target_A: Value %d[%zu] -> Target %zu\n", stacks->stack_a[i], i, stacks->target_a[i]);
+	// printf("Set_Target_A: Value %d[%zu] -> Target %zu\n", stacks->stack_a[i], i, stacks->target_a[i]);
 		i++;
 	}
 }

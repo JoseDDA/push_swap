@@ -6,44 +6,38 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:59:18 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/25 09:48:41 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:12:47 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rrr_both(t_stack *stacks, size_t index)
+void	sync_rrr(t_stack *stacks, size_t index)
 {
 	while (index > 0 && stacks->target_a[index] > 0)
 	{
-		printf("rrr_both: both\n");
 		rev_rot(stacks, 2);
 		index--;
-		stacks->stack_a[index]--;
+		stacks->target_a[index]--; // Update target index logically
 	}
 	while (index > 0)
 	{
-		printf("RRR_BOTH: Rev_rot: rra\n");
-		
-		//printf("Index en Stack move [%zu]\n", index);
 		rev_rot(stacks, 0);
-		index--;
+		index = (index == 0) ? stacks->size_a - 1 : index - 1; // Circular update
 	}
 	while (stacks->target_a[index] > 0)
 	{
-		printf("\n Index %d", (int)index);
-		printf("\n Stack->target A: %d - Stacks->target: %d\n", (int) stacks->target_a[index], (int) stacks->target_b[index]);
-		printf("RRR_BOTH: rev_rot: rrb\n");
 		rev_rot(stacks, 1);
-		stacks->target_a[index]--;
+		stacks->target_a[index]--; // Update target index logically
 	}
 }
 
-void	rr_both(t_stack *stacks, size_t index)
+
+void	sync_rr(t_stack *stacks, size_t index)
 {
 	while (index > 0 && stacks->target_a[index] > 0)
 	{
-		//printf("rr_both\n");
+		//printf("sync_rr\n");
 		//printf("Index en Stack move [%zu]\n", index);
 		rot(stacks, 2);
 		index--;
@@ -51,14 +45,14 @@ void	rr_both(t_stack *stacks, size_t index)
 	}
 	while (index > 0)
 	{
-		//printf( "rr_both: rotating stack a\n");
+		//printf( "sync_rr: rotating stack a\n");
 		//printf("Index en Stack move [%zu]\n", index);
 		rot(stacks, 0 ),
 		index--;
 	}
 	while (stacks->target_a[index] > 0)
 	{
-		//printf("rr_both: rotating stack b\n");
+		//printf("sync_rr: rotating stack b\n");
 		//printf("Index en Stack move [%zu]\n", index);
 		rot(stacks, 1);
 		stacks->target_a[index]--;
@@ -82,7 +76,7 @@ void	r_top(t_stack *stacks, size_t index)
 			rev_rot(stacks, 0);
 		index--;
 	}
-	printf("Target A %d\n", (int) stacks->target_a[index]);
+	//printf("Target A %d\n", (int) stacks->target_a[index]);
 	while (stacks->target_a[0] != stacks->target_a[index])
 	{
 		//printf("r_top: Rotating Stack B\n");
