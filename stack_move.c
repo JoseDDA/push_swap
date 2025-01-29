@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:59:18 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/29 22:39:52 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:01:18 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,24 @@ void	r_top(t_stack *stacks, size_t index)
 		else
 			rev_rot(stacks, 1);
 		stacks->target_a[index]--;
+	}
+}
+
+void	r_top_b(t_stack *stacks, size_t index)
+{
+	size_t	median_A;
+	size_t	rot_count_A;
+
+	median_A = stacks->size_a / 2;
+	rot_count_A = stacks->target_b[index]; 
+	if (stacks->target_b[index] >= median_A)
+		rot_count_A = stacks->size_a - stacks->target_b[index]; 
+	while (rot_count_A > 0)
+	{
+		if (stacks->target_b[index] < median_A)
+			rot(stacks, 0);
+		else
+			rev_rot(stacks, 0);
+		rot_count_A--;
 	}
 }
