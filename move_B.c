@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:31:30 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/28 18:38:10 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:21:21 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,21 @@ void	set_target_b(t_stack *stacks)
 	i = 0;
 	while (i < stacks->size_b)
 	{
-		target = stacks->size_a;
+		target = -1;
 		j = 0;
 		while (j < stacks->size_a)
 		{
 			if (stacks->stack_b[i] < stacks->stack_a[j]  && 
-			(target == (int) stacks->size_a || stacks->stack_a[j] < stacks->stack_a[target]))
+			(target == -1 || stacks->stack_a[j] < stacks->stack_a[target]))
 				target = j;
 			j++;
 		}
-		if (target == (int) stacks->size_a)
-			target = find_index(stacks, find_max(stacks));
-		else
-			stacks->target_b[i] = target;
-		//printf("DEBUG: B[%zu] = %d -> Target A[%d] = %d\n", i, stacks->stack_b[i], target, stacks->stack_a[target]);
+		if (target == -1)
+			target = find_index(stacks->stack_a, stacks->size_a, find_max(stacks->stack_a, stacks->size_a) );
+		stacks->target_b[i] = target;
+		//printf("Stack B: Value %d[%zu] -> Target A %d[%zu]\n", stacks->stack_b[i], i, stacks->stack_a[target], stacks->target_b[i]);
 		i++;
 	}
-	//printf("\n");
 }
 
 
@@ -45,15 +43,9 @@ void	move_cheapest_b(t_stack *stacks)
 {
 	size_t	cheapest_index;
 
-	//printf("Setting target B \n");
 	set_target_b(stacks);
 	ft_calculate_cost_b(stacks);
 	cheapest_index = pick_cheapest_b(stacks);
-	//printf("\n");
-	//printf("DEBUG: Cheapest in Stack B: %d[%zu]\n", stacks->stack_b[cheapest_index], cheapest_index);
-	//printf("DEBUG: Target in Stack A: %d[%zu]\n", stacks->stack_a[stacks->target_b[cheapest_index]], stacks->target_b[cheapest_index]);
-	//printf("\n");
-	
 	r_top_b(stacks, cheapest_index);
 }
 
