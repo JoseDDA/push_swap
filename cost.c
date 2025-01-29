@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:03:24 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/28 18:00:17 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:05:55 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,27 @@ int	ft_r_cost(size_t i, size_t size, size_t median)
 
 int	ft_rr_rrr_cost(size_t i, size_t size_A, size_t size_B, size_t target, int is_rr)
 {
-	size_t	median_A;
-	size_t	median_B;
+	int	total_moves;
 
-	median_A = size_A / 2;
-	median_B = size_B / 2;
-	if ((is_rr && i < median_A && target < median_B) ||
-		(!is_rr && i >=median_A && target >= median_B))
+	if (is_rr && i <= (size_A / 2) && target <= (size_B / 2))
 	{
-		if (is_rr)
-		{
-			if (i < target)
-				return (i);
-			else
-				return (target);
-		}
+		total_moves = i - target;
+		if (total_moves < 0)
+			total_moves *= -1;
+		if (i < target)
+			return(total_moves += i);
 		else
-		{
-			if((size_A - i) < (size_B - target))
-				return (size_A - i);
-			else
-				return (size_B - target);
-		}
+			return (total_moves += target);
+	}
+	else if (!is_rr && i > (size_A / 2) && target > (size_B / 2))
+	{
+		total_moves = (size_A - i) - (size_B - target);
+		if (total_moves < 0)
+			total_moves *= -1;
+		if((size_A - i) < (size_B - target))
+			return (total_moves += size_A - i);
+		else
+			return (total_moves += size_B - target);
 	}
 	return (INT_MAX);
 }
@@ -64,6 +63,7 @@ void	ft_calculate_cost(t_stack *stacks)
 			 stacks->target_a[i], 1);
 		stacks->cost_rrr[i] = ft_rr_rrr_cost(i, size_A, size_B,
 			 stacks->target_a[i], 0);
+		//printf("Cost %d[%zu]: Independent %d, rr: %d, rrr: %d\n",stacks->stack_a[i], i, stacks->cost[i], stacks->cost_rr[i], stacks->cost_rrr[i]);
 		i++;
 	}
 }
@@ -91,7 +91,6 @@ size_t	pick_cheapest(t_stack *stacks)
 	size_t	rr_cost;
 	size_t	rrr_cost;
 
-	// cost no retorna el costo, sino el indice del valor más bajo
 	cost = find_lowest_index(stacks->cost, stacks->size_a);
 	//printf("Cost: Cheapest aquí %zu\n", cost);
 	rr_cost = find_lowest_index(stacks->cost_rr, stacks->size_a);
