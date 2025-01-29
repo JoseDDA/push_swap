@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:03:24 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/28 18:37:46 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:03:20 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,9 @@ size_t	pick_cheapest_b(t_stack *stacks)
 	size_t	rr_cost;
 	size_t	rrr_cost;
 
-	cost = find_lowest_index(stacks->cost, stacks->size_b);
-	//printf("Cost B: Cheapest %d[%zu]\n",stacks->stack_b[cost], cost);
-	
-	rr_cost = find_lowest_index(stacks->cost_rr, stacks->size_b);
-	//printf("RR_Cost B: Cheapest %d[%zu]\n", stacks->stack_b[rr_cost],  rr_cost);
-	
-	rrr_cost = find_lowest_index(stacks->cost_rrr, stacks->size_b);
-	//printf("RRR_Cost B: Cheapest %d[%zu]\n", stacks->stack_b[rrr_cost], rrr_cost);
-	
+	cost = find_lowest_index(stacks->cost, stacks->size_b);	
+	rr_cost = find_lowest_index(stacks->cost_rr, stacks->size_b);	
+	rrr_cost = find_lowest_index(stacks->cost_rrr, stacks->size_b);	
 	if (stacks->cost[cost] <= stacks->cost_rr[cost] && stacks->cost[cost] <= stacks->cost_rrr[rrr_cost])
 		return (stacks->rr_rrr = 0, cost);
 	else if (stacks->cost_rr[rr_cost] <= stacks->cost[cost] && stacks->cost_rr[rr_cost] <= stacks->cost_rrr[rrr_cost])
