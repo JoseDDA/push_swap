@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:57:05 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 12:01:44 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:17:11 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	pa(t_stack *stacks)
 	}
 	stacks->size_b--;
 	i = stacks->size_a;
-	while (i >0)
+	while (i > 0)
 	{
 		stacks->stack_a[i] = stacks->stack_a[i - 1];
 		i--;

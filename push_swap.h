@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:04:38 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 12:17:17 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:18:45 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	sort_stacks(t_stack *stacks);
 // ##-----------------------------------------------##
 
 // ##-- sort_utils --##
-size_t	find_index(t_stack *stacks, int min_value);
+size_t	find_index(int *stack, size_t size, int value);
 int	find_min(t_stack *stacks);
-int	find_max(t_stack *stacks);
+int	find_max(int *stacks, size_t size);
 // ##-----------------------------------------------##
 
 // ##-- Sort Stackas Algorithm --##
@@ -89,17 +89,16 @@ size_t	find_lowest_index(int *cost_array, size_t size);
 // ##-----------------------------------------------##
 
 // ##-- Stack Moves --##
-void	rr_both(t_stack *stacks, size_t index);
-void	rrr_both(t_stack *stacks, size_t index);
-void	r_top(t_stack *stacks, size_t index);
+void	sync_rr_rrr(t_stack *stacks, size_t index, size_t rr_or_rrr);
+void	r_top(t_stack *stacks, size_t index, size_t median_a, size_t median_b);
 // ##-----------------------------------------------##
 
 
 // ##-- Move B --## RENAME 
 void	set_target_b(t_stack *stacks);
 void	move_cheapest_b(t_stack *stacks);
-int	ft_r_cost(size_t i, size_t size, size_t median);
-int	ft_rr_rrr_cost(size_t i, size_t size_A, size_t size_B, size_t target, int is_rr);
+
+
 void	ft_calculate_cost_b(t_stack *stacks);
 size_t	find_lowest_index(int *cost_array, size_t size);
 size_t	pick_cheapest_b(t_stack *stacks);

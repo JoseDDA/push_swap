@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 19:31:30 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/29 22:21:21 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:41:22 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	set_target_b(t_stack *stacks)
 			j++;
 		}
 		if (target == -1)
-			target = find_index(stacks->stack_a, stacks->size_a, find_max(stacks->stack_a, stacks->size_a) );
+			target = find_index(stacks->stack_a, stacks->size_a, find_min(stacks));
 		stacks->target_b[i] = target;
 		//printf("Stack B: Value %d[%zu] -> Target A %d[%zu]\n", stacks->stack_b[i], i, stacks->stack_a[target], stacks->target_b[i]);
 		i++;
 	}
 }
 
-
+// find_max(stacks->stack_a, stacks->size_a)
 void	move_cheapest_b(t_stack *stacks)
 {
 	size_t	cheapest_index;

@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:06:33 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/29 22:54:55 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:27:13 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,31 @@ void	sort_stacks(t_stack *stacks)
 		if (is_sorted_circular(stacks))
 			sort_circular_stack(stacks);
 		push(stacks, 1);
+	// 			printf("\nStack A to B:\n");
+	// 	for (size_t i = 0; i < stacks->size_a; i++)
+	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
+	// printf("\nFinal Stack B:\n");
+	// for (size_t i = 0; i < stacks->size_b; i++)
+	// 	printf("stack_b[%zu] = %d\n", i, stacks->stack_b[i]);
+	// printf("\n");
 	}
 	sort_three(stacks);
+	// 	printf("\nFINISH Stack A to B:\n");
+	// for (size_t i = 0; i < stacks->size_a; i++)
+	// 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
+	// printf("\nFinal Stack B:\n");
+	// for (size_t i = 0; i < stacks->size_b; i++)
+	// 	printf("stack_b[%zu] = %d\n", i, stacks->stack_b[i]);
+	// printf("\n");
 	while (stacks->size_b)
 	{
+		// 			    printf("\nFinal Stack A:\n");
+	    // for (size_t i = 0; i < stacks->size_a; i++)
+	    // 	printf("stack_a[%zu] = %d\n", i, stacks->stack_a[i]);
+	    // printf("\nFinal Stack B:\n");
+	    // for (size_t i = 0; i < stacks->size_b; i++)
+	    // 	printf("stack_b[%zu] = %d\n", i, stacks->stack_b[i]);
+	    // printf("\n");
 		move_cheapest_b(stacks);
 		push(stacks, 0);
 	}

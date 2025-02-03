@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:09:27 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/28 19:15:33 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:27:15 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ int	main(int ac, char **av)
 		}
 	}
 	
-
-
-
 // Debug: Imprimir el estado final de stack_a y stack_b
 
 	// printf("\nFinal Stack A:\n");

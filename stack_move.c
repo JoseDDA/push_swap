@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:59:18 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/29 23:01:18 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:25:13 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,56 @@ void	sync_rr_rrr(t_stack *stacks, size_t index, size_t rr_or_rrr)
 	}
 }
 
-void	r_top(t_stack *stacks, size_t index)
+void	r_top(t_stack *stacks, size_t index, size_t median_a, size_t median_b)
 {
-	size_t	median_A;
-	size_t	median_B;
-	median_A = stacks->size_a / 2;
-	median_B = stacks->size_b /2;
+	int	value_A;
+	int	value_B;
 
-	while (index > 0)
+	value_A = stacks->stack_a[index];
+	value_B = stacks->stack_b[stacks->target_a[index]];
+	while (stacks->stack_a[0] != value_A)
 	{
-		if (index <= median_A)
+		if (index <= median_a)
 			rot(stacks, 0);
 		else
 			rev_rot(stacks, 0);
-		index--;
 	}
-	while (stacks->target_a[index] > 0)
+	while (stacks->stack_b[0] != value_B)
 	{
-		if (stacks->target_a[index] <= median_B)
+		if (stacks->target_a[index] <= median_b)
 			rot(stacks, 1);
 		else
 			rev_rot(stacks, 1);
-		stacks->target_a[index]--;
 	}
+	
+
+	// size_t	rot_count_a;
+	// size_t	rot_count_b;
+
+	// if (index == 0 && stacks->target_a[index] == 0)
+	// 	return;
+	// rot_count_a = index;
+	// if (index > median_b)
+	// 	rot_count_a = stacks->size_a - index;
+	// rot_count_b = stacks->target_a[index];
+	// if (stacks->target_a[index] > median_b)
+	// 	rot_count_b = stacks->size_b - stacks->target_a[index];
+	// while (rot_count_a > 0)
+	// {
+	// 	if (index <= median_a)
+	// 		rot(stacks, 0);
+	// 	else
+	// 		rev_rot(stacks, 0);
+	// 	rot_count_a--;
+	// }
+	// while (rot_count_b > 0)
+	// {
+	// 	if (stacks->target_a[index] <= median_b)
+	// 		rot(stacks, 1);
+	// 	else
+	// 		rev_rot(stacks, 1);
+	// 	rot_count_b--;
+	// }
 }
 
 void	r_top_b(t_stack *stacks, size_t index)

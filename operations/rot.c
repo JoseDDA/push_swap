@@ -6,11 +6,31 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:12:15 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/24 12:10:19 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:59:30 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+
+void	rot(t_stack *stacks, int move)
+{
+	if (move == 0)
+	{
+		ra(stacks);
+		printf("ra\n");
+	}
+	else if (move == 1) 
+	{
+		rb(stacks);
+		printf("rb\n");
+	}
+	else
+	{
+		ra(stacks);
+		rb(stacks);
+		printf("rr\n");
+	}
+}
 
 void	ra(t_stack *stacks)
 {
@@ -37,30 +57,10 @@ void	rb(t_stack *stacks)
 		return ;
 	temp = stacks->stack_b[0];
 	i = 0;
-	while (i < stacks->size_a - 1)
+	while (i < stacks->size_b - 1)
 	{
 		stacks->stack_b[i] = stacks->stack_b[i + 1];
 		i++;
 	}
 	stacks->stack_b[stacks->size_b - 1] = temp;
-}
-
-void	rot(t_stack *stacks, int move)
-{
-	if (move == 0)
-	{
-		ra(stacks);
-		printf("ra\n");
-	}
-	else if (move == 1) 
-	{
-		rb(stacks);
-		printf("rb\n");
-	}
-	else
-	{
-		ra(stacks);
-		rb(stacks);
-		printf("rr\n");
-	}
 }

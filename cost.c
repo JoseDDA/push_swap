@@ -6,7 +6,7 @@
 /*   By: jdorazio <jdorazio@student.42.madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:03:24 by jdorazio          #+#    #+#             */
-/*   Updated: 2025/01/29 22:05:55 by jdorazio         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:21:07 by jdorazio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_r_cost(size_t i, size_t size, size_t median)
 {
-	if (i < median)
+	if (i <= median)
 		return (i);
 	return (size - i);
 }
@@ -23,6 +23,8 @@ int	ft_rr_rrr_cost(size_t i, size_t size_A, size_t size_B, size_t target, int is
 {
 	int	total_moves;
 
+	// if (i == target)
+	// 	return (0);
 	if (is_rr && i <= (size_A / 2) && target <= (size_B / 2))
 	{
 		total_moves = i - target;
@@ -74,12 +76,12 @@ size_t	find_lowest_index(int *cost_array, size_t size)
 	size_t	i;
 
 	i = 0;
-	cheapest_index = 0;
+	cheapest_index = size;
 	while (i < size)
 	{
-		if (cost_array[i] != INT_MAX && (cheapest_index == size ||
-			cost_array[i] < cost_array[cheapest_index]))
-			cheapest_index = i;		
+		if (cheapest_index == size ||
+			cost_array[i] < cost_array[cheapest_index])
+			cheapest_index = i;
 		i++;
 	}
 	return (cheapest_index);

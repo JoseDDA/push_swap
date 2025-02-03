@@ -15,7 +15,7 @@ NAME = push_swap
 #  find *.c | xargs echo
 
 SRCS = argument_validation.c argument_validation_utils.c cost.c cost_b.c\
-	exit_handler.c main.c move_B.c move_algo.c sort.c sort_utils.c stack_b_move.c stack_move.c\
+	exit_handler.c main.c move_B.c move_algo.c sort.c sort_utils.c stack_move.c\
 	operations/push.c operations/rev_rot.c operations/rot.c operations/swap.c
 
 
