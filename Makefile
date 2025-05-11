@@ -14,16 +14,17 @@ NAME = push_swap
 
 #  find *.c | xargs echo
 
-SRCS = argument_validation.c argument_validation_utils.c cost.c cost_b.c\
-	exit_handler.c main.c move_B.c move_algo.c sort.c sort_utils.c stack_move.c\
-	operations/push.c operations/rev_rot.c operations/rot.c operations/swap.c
+SRCS = src/argument_validation.c src/argument_validation_utils.c src/cost_b.c\
+		src/cost.c src/exit_handler.c src/main.c src/move_algo.c src/move_B.c\
+		src/push.c src/rev_rot.c src/rot.c src/sort.c src/sort_utils.c src/stack_move.c src/swap.c
 
 
 OBJS = $(SRCS:.c=.o)
 LIBFT = libft/libft.a
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Iinclude -Ilibft
+#-g3 -fsanitize=address
 AR = ar rcs
 
 all: $(NAME)
